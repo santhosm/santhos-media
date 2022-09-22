@@ -6,7 +6,10 @@ on:
       - reopened
       - synchronize
     paths:
-      - CD/terraform/infra/**      
+      - CD/terraform/infra/**   
+permissions:
+      id-token: write
+      contents: read   
 jobs: 
   build-and-deploy:
     name: build
