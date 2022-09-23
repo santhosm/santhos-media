@@ -33,6 +33,9 @@ resource "azurerm_kubernetes_cluster" "default" {
     vm_size         = "Standard_D2_v2"
     os_disk_size_gb = 30
   }
+  identity {
+    type = "SystemAssigned"
+  }
 
   tags = {
     environment = "media"
