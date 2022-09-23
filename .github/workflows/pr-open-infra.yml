@@ -31,5 +31,5 @@ jobs:
       run: |
         cd CD/terraform/infra
         terraform init
-        terraform plan -out tenant.plan > plan.txt
+        terraform plan -var="client_secret=${{ secrets.CLIENT_SECRET }} -out tenant.plan > plan.txt
         terraform show tenant.plan -no-color | tee -a ../tfplan.txt
