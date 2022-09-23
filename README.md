@@ -6,6 +6,7 @@ This Repo consist of both CI/CD pipeline to deploy mediaWiki server by using fol
 - Containirization - **Docker**
 - Container orchestration - **Kubernetes (AKS)**
 - Kube package manager - **Helm**
+- Upgrade stratergy - **Rolling**
 
 ## CI Pipeline
 
@@ -37,3 +38,7 @@ Once the Plan is verified, PR is aprooved and merged it would trigger **pr-aprro
 https://github.com/santhosm/thoughtworks/actions/runs/3111896400/jobs/5044712285#step:10:50
 
 **Media server is available at http://20.102.27.106/mediawiki**
+
+## Suggestions for scaling 
+
+- Remove the DB from container and use Cloud provider DBs or use persistet disks to store the DB 
