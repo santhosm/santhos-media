@@ -6,7 +6,7 @@ on:
       - reopened
       - synchronize
     paths:
-      - CD/terraform/infra/**   
+      - CD/terraform/media_server/**   
 permissions:
       id-token: write
       contents: read   
