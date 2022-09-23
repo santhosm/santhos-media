@@ -1,4 +1,4 @@
-name: Plan RG and AKS
+name: Provison RG and AKS
 on:
   pull_request:
     types:

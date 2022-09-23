@@ -28,10 +28,23 @@ jobs:
         rm -f ~/.gitconfig
     - name: Checkout Repository
       uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
-    # - name: Log in with Azure
-    #   uses: azure/login@v1
-    #   with:
-    #     creds: '${{ secrets.AZURE_CREDENTIALS }}'
+    - name: Log in with Azure
+      uses: azure/login@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+    - name: Set AKS context
+      id: set-context
+      uses: azure/aks-set-context@v3
+      with:
+        resource-group: 'terraform_wiki' 
+        cluster-name: 'mediawiki-aks'
+    - name: Setup kubectl
+      id: install-kubectl
+      uses: azure/setup-kubectl@v3
+    - name: add helm repo
+      run: |
+        az acr helm repo add --name santhosregistry.azurecr.io/helm
+        helm repo update
     - name: 'run terraform plan'
       run: |
         cd CD/terraform/media_server
