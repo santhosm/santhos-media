@@ -4,7 +4,7 @@ terraform {
     resource_group_name       = "terraform"
     storage_account_name      = "terraformsanthos"
     container_name            = "terraform-state"
-    key                       = "mediawiki"  
+    key                       = "mediawiki1"  
   }
 }
 
