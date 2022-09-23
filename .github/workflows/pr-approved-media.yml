@@ -29,15 +29,15 @@ jobs:
       uses: azure/login@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
-    - name: Set AKS context
-      id: set-context
-      uses: azure/aks-set-context@v3
-      with:
-        resource-group: 'terraform_wiki' 
-        cluster-name: 'mediawiki-aks'
-    - name: Setup kubectl
-      id: install-kubectl
-      uses: azure/setup-kubectl@v3
+    # - name: Set AKS context
+    #   id: set-context
+    #   uses: azure/aks-set-context@v3
+    #   with:
+    #     resource-group: 'terraform_wiki' 
+    #     cluster-name: 'mediawiki-aks'
+    # - name: Setup kubectl
+    #   id: install-kubectl
+    #   uses: azure/setup-kubectl@v3
     - name: add helm repo
       run: |
         az acr helm repo add --name santhosregistry.azurecr.io/helm
