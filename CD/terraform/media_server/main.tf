@@ -7,6 +7,12 @@ terraform {
     key                       = "mediawikiserver"  
   }
 }
+provider helm {
+  kubernetes {
+    load_config_file = true
+    config_context = "mediawiki-aks"
+  }
+}
 provider "azurerm" {
   features {}
 }
