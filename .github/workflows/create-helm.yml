@@ -30,6 +30,6 @@ jobs:
         helm package .
     - name: push
       run: |
-        cd cd CI/helm/media_wiki
+        cd CI/helm/media_wiki
         helmpackage=$(ls | grep media_wiki.)
         az acr helm push $helmpackage --name santhosregistry.azurecr.io/helm
