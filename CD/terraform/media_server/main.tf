@@ -12,7 +12,7 @@ provider "azurerm" {
 }
 resource "helm_release" "example" {
   name       = "mediawiki-release"
-  repository = "https://santhosregistry.azurecr.io/helm"
+  repository = "santhosregistry"
   chart      = "media_wiki"
   version    = "0.1.3"
 }

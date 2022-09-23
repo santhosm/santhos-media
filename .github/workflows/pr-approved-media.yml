@@ -42,7 +42,7 @@ jobs:
       run: |
         az acr helm repo add --name santhosregistry.azurecr.io/helm
         helm repo update
-     - name: 'run terraform plan'
+    - name: 'run terraform plan'
       run: |
         cd CD/terraform/media_server
         terraform init
