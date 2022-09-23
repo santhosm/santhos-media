@@ -5,7 +5,8 @@ on:
     branches:
       - 'main'
     paths:
-      - CI/**
+      -  CI/**
+      - '!CI/helm/**'
 jobs:
   create-docker:
     runs-on: ubuntu-latest

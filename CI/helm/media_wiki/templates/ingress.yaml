@@ -1,0 +1,22 @@
+{{- if .Values.mediawiki.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: media-wiki-ingress
+  {{- with .Values.mediawiki.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ingressClassName: {{ .Values.mediawiki.ingress.ingressClassName }}
+  rules:
+  - http:
+      paths:
+      - path: "/"
+        pathType: {{ .Values.mediawiki.ingress.pathType }}
+        backend:
+          service:
+            name: mediawiki
+            port:
+              number: 80
+{{- end }}

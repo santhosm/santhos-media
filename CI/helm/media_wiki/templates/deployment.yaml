@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mediawiki
+  namespace: {{ .Release.Namespace }}
+  labels:
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/name: mediawiki
+spec:
+  replicas: {{ .Values.mediawiki.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mediawiki
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  strategy:
+    type: {{ .Values.mediawiki.deployment.strategy }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app.kubernetes.io/name: mediawiki
+        app.kubernetes.io/instance: {{ .Release.Name }}
+      {{- with .Values.mediawiki.labels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.mediawiki.image.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      containers:
+        - name: mediawiki
+          image: {{ .Values.mediawiki.image.name }}:{{ .Values.mediawiki.image.tag }}
+          imagePullPolicy: {{ .Values.mediawiki.image.pullPolicy }}
+          ports:
+            - name: server
+              containerPort: 80
+              protocol: TCP
+          {{- with .Values.mediawiki.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.mediawiki.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.mediawiki.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

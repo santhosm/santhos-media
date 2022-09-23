@@ -1,0 +1,38 @@
+mediawiki:
+  deployment:
+    replicaCount: 2
+    strategy: RollingUpdate
+  image:
+    registry: ""
+    name: santhos663/mediawiki
+    tag: latest
+    pullPolicy: Always
+    imagePullSecrets: []
+  livenessProbe: {}
+  service:
+    type: ClusterIP
+    port: 80
+  context:
+    ports:
+      server: 80
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    
+    annotations: {
+          nginx.ingress.kubernetes.io/ssl-redirect: "false",
+          nginx.ingress.kubernetes.io/affinity: cookie
+    }
+    pathType: ImplementationSpecific
+
+    hosts: {}
+    tls: []
+  resources:
+    requests:
+      memory: 0.5Gi
+      cpu: 0.1
+    limits:
+      memory: 0.5Gi
+      cpu: 1
+  tolerations: []
+  labels: {}
