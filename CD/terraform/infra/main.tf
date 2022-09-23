@@ -13,7 +13,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "default" {
-  name     = "terraform"
+  name     = "terraform_wiki"
   location = "East US"
 
   tags = {
