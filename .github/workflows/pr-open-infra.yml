@@ -1,0 +1,40 @@
+name: Provison RG and AKS
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    paths:
+      - CD/terraform/infra/**   
+permissions:
+      id-token: write
+      contents: read   
+jobs: 
+  build-and-deploy:
+    name: build
+    runs-on: ubuntu-latest
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }} 
+    steps:
+    - name: Clean Workspace
+      uses: AutoModality/action-clean@d004b47eb728f2a83316fc70ba9a62ef97278013 #v1.1.0
+    - name: Clean up runner
+      run: |
+        rm -f ~/.ssh/*
+        rm -f ~/.gitconfig
+    - name: Checkout Repository
+      uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
+    # - name: Log in with Azure
+    #   uses: azure/login@v1
+    #   with:
+    #     creds: '${{ secrets.AZURE_CREDENTIALS }}'
+    - name: 'run terraform plan'
+      run: |
+        cd CD/terraform/infra
+        terraform init
+        terraform plan -out tenant.plan > plan.txt
+        terraform show tenant.plan -no-color | tee -a ../tfplan.txt
