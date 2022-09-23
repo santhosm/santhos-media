@@ -23,10 +23,10 @@ jobs:
         rm -f ~/.gitconfig
     - name: Checkout Repository
       uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
-    - name: Log in with Azure
-      uses: azure/login@v1
-      with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+    # - name: Log in with Azure
+    #   uses: azure/login@v1
+    #   with:
+    #     creds: '${{ secrets.AZURE_CREDENTIALS }}'
     - name: 'run terraform plan'
       run: |
         cd CD/terraform/infra
