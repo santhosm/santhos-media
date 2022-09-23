@@ -1,10 +1,7 @@
-name: Provison media server
+name: Provison Media server
 on:
   pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
+    types: [closed]
     paths:
       - CD/terraform/media_server/**   
 permissions:
@@ -37,4 +34,4 @@ jobs:
         cd CD/terraform/media_server
         terraform init
         terraform plan -out tenant.plan > plan.txt
-        terraform show tenant.plan -no-color | tee -a ../tfplan.txt
+        terraform apply tenant.plan -no-color | tee -a ../tfapply.txt
